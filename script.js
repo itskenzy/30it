@@ -31,7 +31,10 @@ const endScreen = document.getElementById("endScreen");
 const playButton = document.getElementById("playButton");
 const backgroundMusic = document.getElementById("backgroundMusic");
 const restartButton = document.getElementById("restartButton");
+const nextButton = document.getElementById("nextButton");
+const backButton = document.getElementById("backButton");
 
+// Event listener untuk tombol play
 playButton.addEventListener("click", () => {
     welcomeScreen.style.display = "none";
     storyScreen.style.display = "flex";
@@ -40,6 +43,7 @@ playButton.addEventListener("click", () => {
     typeDialogue(dialogues[currentDialogueIndex]);
 });
 
+// Fungsi untuk mengetik dialog
 function typeDialogue(dialogue) {
     dialogueElement.innerHTML = ''; // Reset dialog
     let i = 0;
@@ -53,45 +57,56 @@ function typeDialogue(dialogue) {
             // Cek apakah sudah mencapai dialog terakhir
             if (currentDialogueIndex < dialogues.length - 1) {
                 // Tampilkan tombol Next
-                document.getElementById("nextButton").style.display = "block";
+                nextButton.style.display = "block";
             } else {
                 // Tampilkan akhir cerita
                 showEndScreen();
             }
+            // Tampilkan tombol Back jika ada dialog sebelumnya
+            backButton.style.display = currentDialogueIndex > 0 ? "block" : "none";
         }
     }, 50); // Kecepatan mengetik
 }
 
+// Fungsi untuk melanjutkan ke dialog berikutnya
 function showNextDialogue() {
     if (currentDialogueIndex < dialogues.length - 1) {
         currentDialogueIndex++;
         typeDialogue(dialogues[currentDialogueIndex]);
         // Sembunyikan tombol Next setelah dialog baru dimulai
-        document.getElementById("nextButton").style.display = "none";
+        nextButton.style.display = "none";
+        // Tampilkan tombol Back
+        backButton.style.display = "block";
     }
 }
 
-document.getElementById("nextButton").addEventListener("click", showNextDialogue);
+// Event listener untuk tombol Next
+nextButton.addEventListener("click", showNextDialogue);
 
-document.getElementById("backButton").addEventListener("click", () => {
+// Event listener untuk tombol Back
+backButton.addEventListener("click", () => {
     if (currentDialogueIndex > 0) {
         currentDialogueIndex--;
         typeDialogue(dialogues[currentDialogueIndex]);
         // Sembunyikan tombol Back jika dialog pertama ditampilkan
-        document.getElementById("backButton").style.display = currentDialogueIndex === 0 ? "none" : "block";
+        backButton.style.display = currentDialogueIndex === 0 ? "none" : "block";
+        // Tampilkan tombol Next jika bukan dialog terakhir
+        nextButton.style.display = currentDialogueIndex < dialogues.length - 1 ? "block" : "none";
     }
 });
 
+// Event listener untuk tombol restart
 restartButton.addEventListener("click", () => {
     currentDialogueIndex = 0;
     endScreen.style.display = "none";
     welcomeScreen.style.display = "flex";
     backgroundMusic.currentTime = 0; // Reset lagu ke awal
     dialogueElement.innerHTML = ''; // Reset dialog pada tampilan awal
-    document.getElementById("nextButton").style.display = "none"; // Sembunyikan tombol Next
-    document.getElementById("backButton").style.display = "none"; // Sembunyikan tombol Back
+    nextButton.style.display = "none"; // Sembunyikan tombol Next
+    backButton.style.display = "none"; // Sembunyikan tombol Back
 });
 
+// Fungsi untuk menampilkan layar akhir
 function showEndScreen() {
     storyScreen.style.display = "none";
     endScreen.style.display = "flex";
@@ -102,6 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
     welcomeScreen.style.display = "flex";
     storyScreen.style.display = "none";
     endScreen.style.display = "none";
-    document.getElementById("nextButton").style.display = "none"; // Sembunyikan tombol Next
-    document.getElementById("backButton").style.display = "none"; // Sembunyikan tombol Back
+    nextButton.style.display = "none"; // Sembunyikan tombol Next
+    backButton.style.display = "none"; // Sembunyikan tombol Back
 });
