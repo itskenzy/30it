@@ -23,7 +23,6 @@ const dialogues = [
     "Jenazah Prof Kewarganegaraan diseret dengan posisi badan dan kepalanya berada di lantai."
 ];
 
-
 let currentDialogueIndex = 0;
 const dialogueElement = document.getElementById("dialogue");
 const welcomeScreen = document.getElementById("welcomeScreen");
@@ -37,6 +36,7 @@ playButton.addEventListener("click", () => {
     welcomeScreen.style.display = "none";
     storyScreen.style.display = "flex";
     backgroundMusic.play(); // Memastikan lagu diputar
+    currentDialogueIndex = 0; // Reset index dialog saat mulai
     typeDialogue(dialogues[currentDialogueIndex]);
 });
 
@@ -51,7 +51,11 @@ function typeDialogue(dialogue) {
         } else {
             clearInterval(typingInterval);
             // Cek apakah sudah mencapai dialog terakhir
-            if (currentDialogueIndex === dialogues.length - 1) {
+            if (currentDialogueIndex < dialogues.length - 1) {
+                // Tampilkan tombol Next
+                document.getElementById("nextButton").style.display = "block";
+            } else {
+                // Tampilkan akhir cerita
                 showEndScreen();
             }
         }
@@ -62,6 +66,8 @@ function showNextDialogue() {
     if (currentDialogueIndex < dialogues.length - 1) {
         currentDialogueIndex++;
         typeDialogue(dialogues[currentDialogueIndex]);
+        // Sembunyikan tombol Next setelah dialog baru dimulai
+        document.getElementById("nextButton").style.display = "none";
     }
 }
 
@@ -71,6 +77,8 @@ document.getElementById("backButton").addEventListener("click", () => {
     if (currentDialogueIndex > 0) {
         currentDialogueIndex--;
         typeDialogue(dialogues[currentDialogueIndex]);
+        // Sembunyikan tombol Back jika dialog pertama ditampilkan
+        document.getElementById("backButton").style.display = currentDialogueIndex === 0 ? "none" : "block";
     }
 });
 
@@ -79,6 +87,9 @@ restartButton.addEventListener("click", () => {
     endScreen.style.display = "none";
     welcomeScreen.style.display = "flex";
     backgroundMusic.currentTime = 0; // Reset lagu ke awal
+    dialogueElement.innerHTML = ''; // Reset dialog pada tampilan awal
+    document.getElementById("nextButton").style.display = "none"; // Sembunyikan tombol Next
+    document.getElementById("backButton").style.display = "none"; // Sembunyikan tombol Back
 });
 
 function showEndScreen() {
@@ -86,4 +97,11 @@ function showEndScreen() {
     endScreen.style.display = "flex";
 }
 
-// Menginisialisasi dialog pertama
+// Menginisialisasi dialog pertama saat halaman dimuat
+document.addEventListener("DOMContentLoaded", () => {
+    welcomeScreen.style.display = "flex";
+    storyScreen.style.display = "none";
+    endScreen.style.display = "none";
+    document.getElementById("nextButton").style.display = "none"; // Sembunyikan tombol Next
+    document.getElementById("backButton").style.display = "none"; // Sembunyikan tombol Back
+});
