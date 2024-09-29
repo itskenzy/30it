@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Manrope', sans-serif; /* Mengubah font menjadi Manrope */
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Menyembunyikan scrollbar */
+}
+
+#container {
+    text-align: center;
+    margin: 0 20px; /* Margin samping untuk tampilan lebih baik */
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#dialogue {
+    margin: 20px 0;
+    font-size: 1.5em;
+    line-height: 1.5;
+    padding: 20px; /* Padding untuk jarak antara teks dan batas */
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 40px); /* Mengurangi lebar tombol untuk memastikan tidak tenggelam */
+    margin-top: 20px; /* Jarak atas untuk navigasi */
+    position: fixed; /* Membuat tombol tetap */
+    bottom: 20px; /* Jarak dari bawah layar */
+}
+
+button {
+    background-color: #ff5733;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0; /* Hapus margin antar tombol agar tidak tenggelam */
+}
+
+button:hover {
+    background-color: #c70039;
+}
+
+/* Responsif untuk perangkat kecil */
+@media (max-width: 600px) {
+    #dialogue {
+        font-size: 1.2em;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}

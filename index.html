@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisah Fiktif</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <div id="welcomeScreen" class="screen">
+            <h1>Kisah Ini Hanya Fiktif Belaka</h1>
+            <p>Apakah Anda ingin melanjutkan?</p>
+            <button id="playButton">Play</button>
+        </div>
+        <div id="storyScreen" class="screen" style="display: none;">
+            <div id="dialogue"></div>
+            <div class="navigation">
+                <button id="backButton">Back</button>
+                <button id="nextButton">Next</button>
+            </div>
+        </div>
+        <div id="endScreen" class="screen" style="display: none;">
+            <h1>Tamat</h1>
+            <button id="restartButton">Ulangi</button>
+        </div>
+    </div>
+    <audio id="backgroundMusic" src="song.mp3" preload="auto" loop></audio> <!-- Memastikan musik berulang -->
+    <script src="script.js"></script>
+</body>
+</html>
